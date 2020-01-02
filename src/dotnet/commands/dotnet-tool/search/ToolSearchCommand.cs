@@ -19,8 +19,6 @@ namespace Microsoft.DotNet.Tools.Tool.List
     {
         private readonly AppliedOption _options;
         private readonly ParseResult _result;
-        private readonly ToolListGlobalOrToolPathCommand _toolListGlobalOrToolPathCommand;
-        private readonly ToolListLocalCommand _toolListLocalCommand;
 
         public ToolSearchCommand(
             AppliedOption options,
@@ -34,19 +32,7 @@ namespace Microsoft.DotNet.Tools.Tool.List
 
         public override int Execute()
         {
-            ToolAppliedOption.EnsureNoConflictGlobalLocalToolPathOption(
-                _options,
-                LocalizableStrings.ListToolCommandInvalidGlobalAndLocalAndToolPath);
-
-            if (_options.ValueOrDefault<bool>(ToolAppliedOption.GlobalOption)
-                || !string.IsNullOrWhiteSpace(_options.SingleArgumentOrDefault(ToolAppliedOption.ToolPathOption)))
-            {
-                return _toolListGlobalOrToolPathCommand.Execute();
-            }
-            else
-            {
-                return _toolListLocalCommand.Execute();
-            }
+            return 0;
         }
     }
 }
