@@ -123,4 +123,10 @@
   <data name="CommandsColumn" xml:space="preserve">
     <value>Commands</value>
   </data>
+  <data name="SearchTerm" xml:space="preserve">
+    <value>Search Term</value>
+  </data>
+  <data name="SearchTermDescription" xml:space="preserve">
+    <value>Search term from package id or package description</value>
+  </data>
 </root>

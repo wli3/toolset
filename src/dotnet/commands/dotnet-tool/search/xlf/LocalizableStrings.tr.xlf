@@ -12,6 +12,16 @@
         <target state="new">Commands</target>
         <note />
       </trans-unit>
+      <trans-unit id="SearchTerm">
+        <source>Search Term</source>
+        <target state="new">Search Term</target>
+        <note />
+      </trans-unit>
+      <trans-unit id="SearchTermDescription">
+        <source>Search term from package id or package description</source>
+        <target state="new">Search term from package id or package description</target>
+        <note />
+      </trans-unit>
     </body>
   </file>
 </xliff>

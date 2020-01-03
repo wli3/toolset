@@ -14,6 +14,9 @@ namespace Microsoft.DotNet.Cli
             return Create.Command(
                 "search",
                 LocalizableStrings.CommandDescription,
+                Accept.ZeroOrMoreArguments()
+                    .With(name: LocalizableStrings.SearchTerm,
+                          description: LocalizableStrings.SearchTermDescription),
                 CommonOptions.HelpOption());
         }
     }
