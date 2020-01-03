@@ -16,7 +16,7 @@ namespace Microsoft.DotNet.Tests
 {
     public class NugetSearchApiReaderTests : TestBase
     {
-        [Fact(Skip = "WIP")]
+        [Fact]
         void ItCanRead()
         {
             var json = File.ReadAllText("queryResultSample.json");
