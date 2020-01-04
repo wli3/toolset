@@ -49,8 +49,6 @@ namespace Microsoft.DotNet.Tools.Tool.Search
                 queryUrl = $"https://azuresearch-usnc.dev.nugettest.org/query?q={_searchTerm}&packageType=dotnettool";
             }
 
-            Console.WriteLine(queryUrl);
-
             var httpClient = new HttpClient();
             var cancellation = new CancellationTokenSource(TimeSpan.FromSeconds(10));
             HttpResponseMessage response = httpClient.GetAsync(queryUrl, cancellation.Token).Result;
