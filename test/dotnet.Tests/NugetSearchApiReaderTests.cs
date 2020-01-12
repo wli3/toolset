@@ -26,7 +26,7 @@ namespace Microsoft.DotNet.Tests
                 PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
             };
 
-            var result = JsonSerializer.Deserialize<NugetSearchApiContainerSerializable>(json);
+            var result = JsonSerializer.Deserialize<NugetSearchApiContainerSerializable>(json, options);
 
             result.Should().BeNull();
         }

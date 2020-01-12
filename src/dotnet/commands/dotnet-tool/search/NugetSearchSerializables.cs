@@ -39,7 +39,6 @@ namespace Microsoft.DotNet.Tools.Tool.Search
         public string Description { get; set; }
         public string Summary { get; set; }
         public string[] Tags { get; set; }
-        public string[] Owners { get; set; }
         public string[] Authors { get; set; }
         public int TotalDownloads { get; set; }
         public bool Verified { get; set; }

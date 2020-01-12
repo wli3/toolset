@@ -70,9 +70,6 @@ namespace Microsoft.DotNet.Tools.Tool.Search
                     "Authors",
                     p => p.Authors == null ? "" : string.Join(", ", p.Authors));
                 table.AddColumn(
-                    "Owners",
-                    p => p.Owners == null ? "" : string.Join(", ", p.Owners));
-                table.AddColumn(
                     "Downloads",
                     p => p.TotalDownloads.ToString());
                 table.AddColumn(
@@ -90,11 +87,6 @@ namespace Microsoft.DotNet.Tools.Tool.Search
                     if (p.Authors != null && p.Authors.Length != 0)
                     {
                         Reporter.Output.WriteLine("\tAuthors: " + string.Join(", ", p.Authors));
-                    }
-                    
-                    if (p.Owners != null && p.Owners.Length != 0)
-                    {
-                        Reporter.Output.WriteLine("\tOwners: " + string.Join(", ", p.Owners));
                     }
 
                     Reporter.Output.WriteLine("\tDownloads: " + p.TotalDownloads);
