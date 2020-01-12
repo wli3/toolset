@@ -17,12 +17,13 @@ namespace Microsoft.DotNet.Tests
     public class NugetSearchApiReaderTests : TestBase
     {
         [Fact]
-        void ItCanRead()
+        public void ItCanRead()
         {
             var json = File.ReadAllText("queryResultSample.json");
             var options = new JsonSerializerOptions
             {
-                AllowTrailingCommas = true
+                AllowTrailingCommas = true,
+                PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
             };
 
             var result = JsonSerializer.Deserialize<NugetSearchApiContainerSerializable>(json);

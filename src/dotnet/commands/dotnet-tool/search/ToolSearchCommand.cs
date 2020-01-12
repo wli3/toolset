@@ -62,45 +62,45 @@ namespace Microsoft.DotNet.Tools.Tool.Search
             {
                 table.AddColumn(
                     "Package ID",
-                    p => p.id);
+                    p => p.Id);
                 table.AddColumn(
                     "Latest Version",
-                    p => p.version);
+                    p => p.Version);
                 table.AddColumn(
                     "Authors",
-                    p => p.authors == null ? "" : string.Join(", ", p.authors));
+                    p => p.Authors == null ? "" : string.Join(", ", p.Authors));
                 table.AddColumn(
                     "Owners",
-                    p => p.owners == null ? "" : string.Join(", ", p.owners));
+                    p => p.Owners == null ? "" : string.Join(", ", p.Owners));
                 table.AddColumn(
                     "Downloads",
-                    p => p.totalDownloads.ToString());
+                    p => p.TotalDownloads.ToString());
                 table.AddColumn(
                     "Verified",
-                    p => p.verified ? "x" : "");
+                    p => p.Verified ? "x" : "");
 
-                table.PrintRows(parsed.data, l => Reporter.Output.WriteLine(l));
+                table.PrintRows(parsed.Data, l => Reporter.Output.WriteLine(l));
             }
             else
             {
-                foreach (var p in parsed.data)
+                foreach (var p in parsed.Data)
                 {
-                    Reporter.Output.WriteLine(p.id);
-                    Reporter.Output.WriteLine("\tLatest Version: " + p.version);
-                    if (p.authors != null && p.authors.Length != 0)
+                    Reporter.Output.WriteLine(p.Id);
+                    Reporter.Output.WriteLine("\tLatest Version: " + p.Version);
+                    if (p.Authors != null && p.Authors.Length != 0)
                     {
-                        Reporter.Output.WriteLine("\tAuthors: " + string.Join(", ", p.authors));
+                        Reporter.Output.WriteLine("\tAuthors: " + string.Join(", ", p.Authors));
                     }
                     
-                    if (p.owners != null && p.owners.Length != 0)
+                    if (p.Owners != null && p.Owners.Length != 0)
                     {
-                        Reporter.Output.WriteLine("\tOwners: " + string.Join(", ", p.owners));
+                        Reporter.Output.WriteLine("\tOwners: " + string.Join(", ", p.Owners));
                     }
 
-                    Reporter.Output.WriteLine("\tDownloads: " + p.totalDownloads);
-                    Reporter.Output.WriteLine("\tVerified: " + p.verified.ToString());
-                    Reporter.Output.WriteLine("\tSummary: " + p.summary);
-                    Reporter.Output.WriteLine("\tDescription: " + p.description);
+                    Reporter.Output.WriteLine("\tDownloads: " + p.TotalDownloads);
+                    Reporter.Output.WriteLine("\tVerified: " + p.Verified.ToString());
+                    Reporter.Output.WriteLine("\tSummary: " + p.Summary);
+                    Reporter.Output.WriteLine("\tDescription: " + p.Description);
                     Reporter.Output.WriteLine();
                 }
             }

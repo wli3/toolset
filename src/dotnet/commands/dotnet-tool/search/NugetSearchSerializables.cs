@@ -19,29 +19,29 @@ namespace Microsoft.DotNet.Tools.Tool.Search
 {
     internal class NugetSearchApiContainerSerializable
     {
-        public NugetSearchApiPackageSerializable[] data { get; set; }
+        public NugetSearchApiPackageSerializable[] Data { get; set; }
     }
 
     internal class NugetSearchApiPackageTypesSerializable
     {
-        public string name { get; set; }
+        public string Name { get; set; }
     }
 
     internal class NugetSearchApiVersionSerializable
     {
-        public string version { get; set; }
+        public string Version { get; set; }
     }
 
     internal class NugetSearchApiPackageSerializable
     {
-        public string id { get; set; }
-        public string version { get; set; }
-        public string description { get; set; }
-        public string summary { get; set; }
-        public string[] tags { get; set; }
-        public string[] owners { get; set; }
-        public string[] authors { get; set; }
-        public int totalDownloads { get; set; }
-        public bool verified { get; set; }
+        public string Id { get; set; }
+        public string Version { get; set; }
+        public string Description { get; set; }
+        public string Summary { get; set; }
+        public string[] Tags { get; set; }
+        public string[] Owners { get; set; }
+        public string[] Authors { get; set; }
+        public int TotalDownloads { get; set; }
+        public bool Verified { get; set; }
     }
 }
