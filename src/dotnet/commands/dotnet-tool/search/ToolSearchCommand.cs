@@ -84,7 +84,7 @@ namespace Microsoft.DotNet.Tools.Tool.Search
                 {
                     Reporter.Output.WriteLine(p.Id);
                     Reporter.Output.WriteLine("\tLatest Version: " + p.Version);
-                    if (p.Authors != null && p.Authors.Length != 0)
+                    if (p.Authors != null)
                     {
                         Reporter.Output.WriteLine("\tAuthors: " + string.Join(", ", p.Authors));
                     }

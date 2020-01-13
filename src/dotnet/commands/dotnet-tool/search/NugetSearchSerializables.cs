@@ -2,18 +2,10 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Net.Http;
-using System.Threading;
-using Microsoft.DotNet.Cli;
-using Microsoft.DotNet.Cli.CommandLine;
-using Microsoft.DotNet.Cli.Utils;
-using Microsoft.DotNet.Configurer;
+using System.Globalization;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 using Microsoft.DotNet.ToolPackage;
-using Microsoft.DotNet.Tools.Tool.Common;
-using Microsoft.Extensions.EnvironmentAbstractions;
 
 namespace Microsoft.DotNet.Tools.Tool.Search
 {
@@ -35,10 +27,15 @@ namespace Microsoft.DotNet.Tools.Tool.Search
         public string Description { get; set; }
         public string Summary { get; set; }
         public string[] Tags { get; set; }
-        public string[] Authors { get; set; }
+        public NugetSearchApiAuthorsSerializable Authors { get; set; }
         public int TotalDownloads { get; set; }
         public bool Verified { get; set; }
         public NugetSearchApiVersionSerializable[] Versions { get; set; }
+    }
+    
+    internal class NugetSearchApiAuthorsSerializable
+    {
+        private string[] Authors { get; set; }
     }
 
     internal class SearchResultPackage
@@ -78,5 +75,31 @@ namespace Microsoft.DotNet.Tools.Tool.Search
 
         public string Version { get; }
         public int Downloads { get; }
+    }
+    
+    internal class AuthorsConverter : JsonConverter<NugetSearchApiAuthorsSerializable>
+    {
+        // public override NugetSearchApiAuthorsSerializable Read(
+        //     ref Utf8JsonReader reader,
+        //     Type typeToConvert,
+        //     JsonSerializerOptions options) =>
+        //     DateTimeOffset.ParseExact(reader.GetString(),
+        //         "MM/dd/yyyy", CultureInfo.InvariantCulture);
+        //
+        // public override void Write(
+        //     Utf8JsonWriter writer,
+        //     DateTimeOffset dateTimeValue,
+        //     JsonSerializerOptions options) =>
+        //     writer.WriteStringValue(dateTimeValue.ToString(
+        //         "MM/dd/yyyy", CultureInfo.InvariantCulture));
+        public override NugetSearchApiAuthorsSerializable Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override void Write(Utf8JsonWriter writer, NugetSearchApiAuthorsSerializable value, JsonSerializerOptions options)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
