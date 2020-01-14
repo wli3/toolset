@@ -3,10 +3,12 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text.Json;
 using FluentAssertions;
 using Microsoft.DotNet.TestFramework;
+using Microsoft.DotNet.ToolPackage;
 using Microsoft.DotNet.Tools.Common;
 using Microsoft.DotNet.Tools.Test.Utilities;
 using Microsoft.DotNet.Tools.Tool.Search;
@@ -20,17 +22,21 @@ namespace Microsoft.DotNet.Tests
         public void ItCanRead()
         {
             var json = File.ReadAllText("queryResultSample.json");
-            var options = new JsonSerializerOptions
-            {
-                Converters = { new AuthorsConverter() },
-                AllowTrailingCommas = true,
-                PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
-            };
+            var result = NugetSearchApiResultDeserializer.Deserialize(json);
+            var firstItem = result.First();
+            firstItem.Authors.Should().ContainSingle("author is a scalar");
+            firstItem.Description.Should().Be("test app");
+            firstItem.Id.Should().Be(new PackageId("global.tool.console.demo"));
+            firstItem.LatestVersion.Should().Be("1.0.4");
+            firstItem.Summary.Should().Be("The summary");
+            firstItem.Tags.Should().ContainSingle("test");
+            firstItem.TotalDownloads.Should().Be(20);
+            firstItem.Verified.Should().BeFalse();
+            firstItem.Versions.Single().Downloads.Should().Be(20);
+            firstItem.Versions.Single().Version.Should().Be("1.0.4");
 
-            var result = JsonSerializer.Deserialize<NugetSearchApiContainerSerializable>(json, options);
-
-            result.Should().BeNull();
+            var secondItem = result.Skip(1).First();
+            secondItem.Authors.Should().ContainInOrder("author1", "authors2");
         }
-
     }
 }

@@ -12,7 +12,7 @@
             "id": "global.tool.console.demo",
             "version": "1.0.4",
             "description": "test app",
-            "summary": "",
+            "summary": "The summary",
             "title": "global.tool.console.demo",
             "tags": [
                 "test"
@@ -40,7 +40,7 @@
             "id": "BaseTestPackage.DotnetTool",
             "version": "1.0.0",
             "description": "Package Description",
-            "summary": "",
+            "summary": "The summary",
             "title": "BaseTestPackage.DotnetTool",
             "tags": [],
             "authors": [
