@@ -10,6 +10,7 @@ using System.Text.Json;
 using System.Threading;
 using Microsoft.DotNet.Cli;
 using Microsoft.DotNet.Cli.CommandLine;
+using Microsoft.DotNet.NugetSearch;
 using Microsoft.DotNet.Cli.Utils;
 using Microsoft.DotNet.Configurer;
 using Microsoft.DotNet.ToolPackage;

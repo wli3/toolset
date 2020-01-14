@@ -5,42 +5,10 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Globalization;
-using System.Linq;
-using System.Text.Json;
-using System.Text.Json.Serialization;
 using Microsoft.DotNet.ToolPackage;
 
 namespace Microsoft.DotNet.Tools.Tool.Search
 {
-    internal class NugetSearchApiContainerSerializable
-    {
-        public NugetSearchApiPackageSerializable[] Data { get; set; }
-    }
-
-    internal class NugetSearchApiVersionSerializable
-    {
-        public string Version { get; set; }
-        public int Downloads { get; set; }
-    }
-
-    internal class NugetSearchApiPackageSerializable
-    {
-        public string Id { get; set; }
-        public string Version { get; set; }
-        public string Description { get; set; }
-        public string Summary { get; set; }
-        public string[] Tags { get; set; }
-        public NugetSearchApiAuthorsSerializable Authors { get; set; }
-        public int TotalDownloads { get; set; }
-        public bool Verified { get; set; }
-        public NugetSearchApiVersionSerializable[] Versions { get; set; }
-    }
-
-    internal class NugetSearchApiAuthorsSerializable
-    {
-        public string[] Authors { get; set; }
-    }
-
     /// <summary>
     /// All fields are possibly null other than Id, Version, Tags, Authors, Versions
     /// </summary>
@@ -89,75 +57,5 @@ namespace Microsoft.DotNet.Tools.Tool.Search
 
         public string Version { get; }
         public int Downloads { get; }
-    }
-
-    /// <summary>
-    /// Author field could be a string or a string array
-    /// </summary>
-    internal class AuthorsConverter : JsonConverter<NugetSearchApiAuthorsSerializable>
-    {
-        public override NugetSearchApiAuthorsSerializable Read(ref Utf8JsonReader reader, Type typeToConvert,
-            JsonSerializerOptions options)
-        {
-            if (reader.TokenType == JsonTokenType.StartArray)
-            {
-                var doc = JsonDocument.ParseValue(ref reader);
-                var resultAuthors = doc.RootElement.EnumerateArray().Select(author => author.GetString()).ToArray();
-                return new NugetSearchApiAuthorsSerializable() {Authors = resultAuthors};
-            }
-            else
-            {
-                var s = reader.GetString();
-                return new NugetSearchApiAuthorsSerializable() {Authors = new string[] {s}};
-            }
-        }
-
-        public override void Write(Utf8JsonWriter writer, NugetSearchApiAuthorsSerializable value,
-            JsonSerializerOptions options)
-        {
-            // only deserialize is used
-            throw new NotImplementedException();
-        }
-    }
-
-    internal static class NugetSearchApiResultDeserializer
-    {
-        public static IReadOnlyCollection<SearchResultPackage> Deserialize(string json)
-        {
-            var options = new JsonSerializerOptions
-            {
-                Converters = {new AuthorsConverter()},
-                AllowTrailingCommas = true,
-                PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
-            };
-
-            var deserialized = JsonSerializer.Deserialize<NugetSearchApiContainerSerializable>(json, options);
-            var resultPackages = new List<SearchResultPackage>();
-            foreach (var deserializedPackage in deserialized.Data)
-            {
-                var versions =
-                    deserializedPackage.Versions.Select(v => new SearchResultPackageVersion(v.Version, v.Downloads))
-                        .ToArray();
-
-                string[] authors;
-                if (deserializedPackage?.Authors?.Authors == null)
-                {
-                    authors = Array.Empty<string>();
-                }
-                else
-                {
-                    authors = deserializedPackage.Authors.Authors;
-                }
-
-                var searchResultPackage = new SearchResultPackage(new PackageId(deserializedPackage.Id),
-                    deserializedPackage.Version, deserializedPackage.Description, deserializedPackage.Summary,
-                    deserializedPackage.Tags, authors, deserializedPackage.TotalDownloads, deserializedPackage.Verified,
-                    versions);
-
-                resultPackages.Add(searchResultPackage);
-            }
-
-            return resultPackages;
-        }
     }
 }
