@@ -94,6 +94,11 @@ namespace Microsoft.DotNet.Tools.Tool.Search
         //         "MM/dd/yyyy", CultureInfo.InvariantCulture));
         public override NugetSearchApiAuthorsSerializable Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
         {
+            if (reader.TokenType == JsonTokenType.StartArray)
+            {
+                
+            }
+
             var s = reader.GetString();
             return new NugetSearchApiAuthorsSerializable() { Authors = new string[] { s } };
         }
