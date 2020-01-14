@@ -35,6 +35,35 @@
                     "@id": "https://apidev.nugettest.org/v3/registration4/global.tool.console.demo/1.0.4.json"
                 }
             ]
+        },
+        {
+            "@id": "https://apidev.nugettest.org/v3/registration4/basetestpackage.dotnettool/index.json",
+            "@type": "Package",
+            "registration": "https://apidev.nugettest.org/v3/registration4/basetestpackage.dotnettool/index.json",
+            "id": "BaseTestPackage.DotnetTool",
+            "version": "1.0.0",
+            "description": "Package Description",
+            "summary": "",
+            "title": "BaseTestPackage.DotnetTool",
+            "tags": [],
+            "authors": [
+                "author1",
+                "authors2"
+            ],
+            "totalDownloads": 1,
+            "verified": false,
+            "packageTypes": [
+                {
+                    "name": "DotnetTool"
+                }
+            ],
+            "versions": [
+                {
+                    "version": "1.0.0",
+                    "downloads": 1,
+                    "@id": "https://apidev.nugettest.org/v3/registration4/basetestpackage.dotnettool/1.0.0.json"
+                }
+            ]
         }
     ]
 }
