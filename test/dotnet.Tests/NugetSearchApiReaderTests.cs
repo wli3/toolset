@@ -22,6 +22,7 @@ namespace Microsoft.DotNet.Tests
             var json = File.ReadAllText("queryResultSample.json");
             var options = new JsonSerializerOptions
             {
+                Converters = { new AuthorsConverter() },
                 AllowTrailingCommas = true,
                 PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
             };

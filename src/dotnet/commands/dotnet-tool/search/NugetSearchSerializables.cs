@@ -35,7 +35,7 @@ namespace Microsoft.DotNet.Tools.Tool.Search
     
     internal class NugetSearchApiAuthorsSerializable
     {
-        private string[] Authors { get; set; }
+        public string[] Authors { get; set; }
     }
 
     internal class SearchResultPackage
@@ -94,7 +94,8 @@ namespace Microsoft.DotNet.Tools.Tool.Search
         //         "MM/dd/yyyy", CultureInfo.InvariantCulture));
         public override NugetSearchApiAuthorsSerializable Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
         {
-            throw new NotImplementedException();
+            var s = reader.GetString();
+            return new NugetSearchApiAuthorsSerializable() { Authors = new string[] { s } };
         }
 
         public override void Write(Utf8JsonWriter writer, NugetSearchApiAuthorsSerializable value, JsonSerializerOptions options)
