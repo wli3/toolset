@@ -17,10 +17,7 @@
             "tags": [
                 "test"
             ],
-            "authors": [
-                "author1",
-                "authors2"
-            ],
+            "authors": "author is a scalar",
             "totalDownloads": 20,
             "verified": false,
             "packageTypes": [
