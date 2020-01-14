@@ -3,6 +3,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Globalization;
 using System.Linq;
 using System.Text.Json;
@@ -40,13 +41,24 @@ namespace Microsoft.DotNet.Tools.Tool.Search
         public string[] Authors { get; set; }
     }
 
+    /// <summary>
+    /// All fields are possibly null other than Id, Version, Tags, Authors, Versions
+    /// </summary>
     internal class SearchResultPackage
     {
-        public SearchResultPackage(PackageId id, string version, string description, string summary, string[] tags,
-            string[] authors, int totalDownloads, bool verified, SearchResultPackageVersion[] versions)
+        public SearchResultPackage(
+            PackageId id, 
+            string version, 
+            string description,
+            string summary,
+            IReadOnlyCollection<string> tags,
+            IReadOnlyCollection<string> authors, 
+            int totalDownloads,
+            bool verified,
+            IReadOnlyCollection<SearchResultPackageVersion> versions)
         {
             Id = id;
-            Version = version ?? throw new ArgumentNullException(nameof(version));
+            LatestVersion = version ?? throw new ArgumentNullException(nameof(version));
             Description = description;
             Summary = summary;
             Tags = tags ?? throw new ArgumentNullException(nameof(tags));
@@ -57,14 +69,14 @@ namespace Microsoft.DotNet.Tools.Tool.Search
         }
 
         public PackageId Id { get; }
-        public string Version { get; }
+        public string LatestVersion { get; }
         public string Description { get; }
         public string Summary { get; }
-        public string[] Tags { get; }
-        public string[] Authors { get; }
+        public IReadOnlyCollection<string> Tags { get; }
+        public IReadOnlyCollection<string> Authors { get; }
         public int TotalDownloads { get; }
         public bool Verified { get; }
-        public SearchResultPackageVersion[] Versions { get; }
+        public IReadOnlyCollection<SearchResultPackageVersion> Versions { get; }
     }
     
     internal class SearchResultPackageVersion
@@ -101,7 +113,39 @@ namespace Microsoft.DotNet.Tools.Tool.Search
 
         public override void Write(Utf8JsonWriter writer, NugetSearchApiAuthorsSerializable value, JsonSerializerOptions options)
         {
+            // only deserialize is used
             throw new NotImplementedException();
+        }
+    }
+
+    internal static class NugetSearchApiResultDeserializer
+    {
+        public static ReadOnlyCollection<SearchResultPackage> Deserializer(string json)
+        {
+            var options = new JsonSerializerOptions
+            {
+                Converters = { new AuthorsConverter() },
+                AllowTrailingCommas = true,
+                PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
+            };
+
+            var deserialized = JsonSerializer.Deserialize<NugetSearchApiContainerSerializable>(json, options);
+            var resultPackages = new List<SearchResultPackage>();
+            foreach (var deserializedPackage in deserialized.Data)
+            {
+                var versions =
+                    deserializedPackage.Versions.Select(v => new SearchResultPackageVersion(v.Version, v.Downloads))
+                        .ToArray();
+                
+                string[] authors;
+                if (deserializedPackage.Authors == null)
+                {
+                    authors
+                }
+
+                var searchResultPackage = new SearchResultPackage(new PackageId(deserializedPackage.Id), deserializedPackage.Version, deserializedPackage.Description, deserializedPackage.Summary, deserializedPackage.Tags, deserializedPackage.Authors)
+
+            }
         }
     }
 }
