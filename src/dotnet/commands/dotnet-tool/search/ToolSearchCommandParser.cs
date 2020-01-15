@@ -15,12 +15,31 @@ namespace Microsoft.DotNet.Cli
                 "search",
                 LocalizableStrings.CommandDescription,
                 Accept.ZeroOrMoreArguments()
-                    .With(name: LocalizableStrings.SearchTerm,
-                          description: LocalizableStrings.SearchTermDescription),
+                    .With(name: LocalizableStrings.SearchTermArgumentName,
+                        description: LocalizableStrings.SearchTermDescription),
                 Create.Option(
                     $"--detail",
-                    "Show detail of the query",
+                    LocalizableStrings.DetailDescription,
                     Accept.NoArguments()),
+                Create.Option(
+                    $"--skip",
+                    LocalizableStrings.SkipDescription,
+                    Accept.ExactlyOneArgument()
+                        .With(name: LocalizableStrings.SkipArgumentName)),
+                Create.Option(
+                    $"--take",
+                    LocalizableStrings.TakeDescription,
+                    Accept.ExactlyOneArgument()
+                        .With(name: LocalizableStrings.TakeArgumentName)),
+                Create.Option(
+                    $"--prerelease",
+                    LocalizableStrings.PrereleaseDescription,
+                    Accept.NoArguments()),
+                Create.Option(
+                    $"--semver-level",
+                    LocalizableStrings.SemVerLevelDescription,
+                    Accept.ExactlyOneArgument()
+                        .With(name: LocalizableStrings.SemVerLevelArgumentName)),
                 CommonOptions.HelpOption());
         }
     }

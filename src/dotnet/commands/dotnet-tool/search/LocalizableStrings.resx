@@ -123,10 +123,37 @@
   <data name="CommandsColumn" xml:space="preserve">
     <value>Commands</value>
   </data>
-  <data name="SearchTerm" xml:space="preserve">
+  <data name="SearchTermArgumentName" xml:space="preserve">
     <value>Search Term</value>
   </data>
   <data name="SearchTermDescription" xml:space="preserve">
-    <value>Search term from package id or package description</value>
+    <value>Search term from package id or package description. Require at least one character.</value>
+  </data>
+  <data name="DetailArgumentName" xml:space="preserve">
+    <value>Detail</value>
+  </data>
+  <data name="DetailDescription" xml:space="preserve">
+    <value>Show detail result of the query.</value>
+  </data>
+  <data name="SkipArgumentName" xml:space="preserve">
+    <value>Skip</value>
+  </data>
+  <data name="SkipDescription" xml:space="preserve">
+    <value>The number of results to skip, for pagination.</value>
+  </data>
+  <data name="TakeArgumentName" xml:space="preserve">
+    <value>Take</value>
+  </data>
+  <data name="TakeDescription" xml:space="preserve">
+    <value>The number of results to return, for pagination.</value>
+  </data>
+  <data name="PrereleaseDescription" xml:space="preserve">
+    <value>determining whether to include pre-release packages.</value>
+  </data>
+  <data name="SemVerLevelArgumentName" xml:space="preserve">
+    <value>SemVer Level</value>
+  </data>
+  <data name="SemVerLevelDescription" xml:space="preserve">
+    <value>A SemVer 1.0.0 version string.</value>
   </data>
 </root>

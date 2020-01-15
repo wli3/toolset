@@ -12,14 +12,59 @@
         <target state="new">Commands</target>
         <note />
       </trans-unit>
-      <trans-unit id="SearchTerm">
+      <trans-unit id="DetailArgumentName">
+        <source>Detail</source>
+        <target state="new">Detail</target>
+        <note />
+      </trans-unit>
+      <trans-unit id="DetailDescription">
+        <source>Show detail result of the query.</source>
+        <target state="new">Show detail result of the query.</target>
+        <note />
+      </trans-unit>
+      <trans-unit id="PrereleaseDescription">
+        <source>determining whether to include pre-release packages.</source>
+        <target state="new">determining whether to include pre-release packages.</target>
+        <note />
+      </trans-unit>
+      <trans-unit id="SearchTermArgumentName">
         <source>Search Term</source>
         <target state="new">Search Term</target>
         <note />
       </trans-unit>
       <trans-unit id="SearchTermDescription">
-        <source>Search term from package id or package description</source>
-        <target state="new">Search term from package id or package description</target>
+        <source>Search term from package id or package description. Require at least one character.</source>
+        <target state="new">Search term from package id or package description. Require at least one character.</target>
+        <note />
+      </trans-unit>
+      <trans-unit id="SemVerLevelArgumentName">
+        <source>SemVer Level</source>
+        <target state="new">SemVer Level</target>
+        <note />
+      </trans-unit>
+      <trans-unit id="SemVerLevelDescription">
+        <source>A SemVer 1.0.0 version string.</source>
+        <target state="new">A SemVer 1.0.0 version string.</target>
+        <note />
+      </trans-unit>
+      <trans-unit id="SkipArgumentName">
+        <source>Skip</source>
+        <target state="new">Skip</target>
+        <note />
+      </trans-unit>
+      <trans-unit id="SkipDescription">
+        <source>The number of results to skip, for pagination.</source>
+        <target state="new">The number of results to skip, for pagination.</target>
+        <note />
+      </trans-unit>
+      <trans-unit id="TakeArgumentName">
+        <source>Take</source>
+        <target state="new">Take</target>
+        <note />
+      </trans-unit>
+      <trans-unit id="TakeDescription">
+        <source>The number of results to return, for pagination.</source>
+        <target state="new">The number of results to return, for pagination.</target>
         <note />
       </trans-unit>
     </body>
