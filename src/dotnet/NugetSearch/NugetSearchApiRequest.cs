@@ -6,7 +6,6 @@ using System.Collections.Specialized;
 using System.Net.Http;
 using System.Threading;
 using System.Web;
-using Microsoft.DotNet.Cli.Utils;
 
 namespace Microsoft.DotNet.NugetSearch
 {
@@ -24,12 +23,15 @@ namespace Microsoft.DotNet.NugetSearch
                 if ((int)response.StatusCode >= 500 && (int)response.StatusCode < 600)
                 {
                     throw new NugetSearchApiRequestException(
-                        "Failed to search. Retry later may resolve the issue. NuGet Search API response detail:\n" +
-                        $"\tRequestUrl: {queryUrl.AbsoluteUri}. ReasonPhrase: {response.ReasonPhrase}. StatusCode: {response.StatusCode}.");
+                        string.Format(
+                            LocalizableStrings.RetriableNugetSearchFailure,
+                            queryUrl.AbsoluteUri, response.ReasonPhrase, response.StatusCode));
                 }
 
-                throw new NugetSearchApiRequestException("Failed to search. NuGet Search API response detail.\n" +
-                                                         $"\tRequestUrl: {queryUrl.AbsoluteUri}. ReasonPhrase: {response.ReasonPhrase}. StatusCode: {response.StatusCode}.");
+                throw new NugetSearchApiRequestException(
+                    string.Format(
+                        LocalizableStrings.NonRetriableNugetSearchFailure,
+                        queryUrl.AbsoluteUri, response.ReasonPhrase, response.StatusCode));
             }
 
             return response.Content.ReadAsStringAsync().Result;
@@ -70,14 +72,6 @@ namespace Microsoft.DotNet.NugetSearch
             uriBuilder.Query = query.ToString();
 
             return uriBuilder.Uri;
-        }
-
-        public class NugetSearchApiRequestException : GracefulException
-        {
-            public NugetSearchApiRequestException(string message)
-                : base(new[] {message}, null, false)
-            {
-            }
         }
     }
 }
