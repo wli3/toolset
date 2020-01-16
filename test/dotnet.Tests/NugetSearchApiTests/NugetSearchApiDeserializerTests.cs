@@ -8,12 +8,12 @@ using Microsoft.DotNet.ToolPackage;
 using Microsoft.DotNet.Tools.Test.Utilities;
 using Xunit;
 
-namespace Microsoft.DotNet.Tests
+namespace dotnet.Tests.NugetSearchApiTests
 {
-    public class NugetSearchApiTests : TestBase
+    public class NugetSearchApiDeserializerTests : TestBase
     {
         [Fact]
-        public void ItCanRead()
+        public void ItCanDeserialize()
         {
             var json = File.ReadAllText("queryResultSample.json");
 
