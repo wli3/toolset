@@ -29,12 +29,5 @@ namespace dotnet.Tests.NugetSearchApiTests
                 .Should().Be(
                     "https://azuresearch-usnc.nuget.org/query?packageType=dotnettool");
         }
-
-        [Fact]
-        public void ItShouldFetchContentSuccessfully()
-        {
-            var nugetSearchApiRequest = new NugetSearchApiRequest();
-            nugetSearchApiRequest.GetResult("dotnetsay").Should().Contain("A simple .NET Core global tool called");
-        }
     }
 }
