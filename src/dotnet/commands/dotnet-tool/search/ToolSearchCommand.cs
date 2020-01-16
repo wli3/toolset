@@ -23,50 +23,41 @@ namespace Microsoft.DotNet.Tools.Tool.Search
     {
         private readonly AppliedOption _options;
         private readonly ParseResult _result;
-        private readonly string _searchTerm;
-        private readonly bool _isDetailed;
+        private readonly INugetSearchApiRequest _nugetSearchApiRequest;
 
         public ToolSearchCommand(
             AppliedOption options,
-            ParseResult result
+            ParseResult result,
+            INugetSearchApiRequest nugetSearchApiRequest = null
         )
             : base(result)
         {
             _options = options ?? throw new ArgumentNullException(nameof(options));
             _result = result ?? throw new ArgumentNullException(nameof(result));
-            _searchTerm = options.Arguments.SingleOrDefault();
-            _isDetailed = options.ValueOrDefault<bool>("detail");
+            _nugetSearchApiRequest = nugetSearchApiRequest ?? new NugetSearchApiRequest();
         }
 
         public override int Execute()
         {
-            string queryUrl;
-            if (_searchTerm == null)
-            {
-                queryUrl = "https://azuresearch-usnc.dev.nugettest.org/query?q=&packageType=dotnettool"; // TODO only take top 100
-            }
-            else
-            {
-                queryUrl = $"https://azuresearch-usnc.dev.nugettest.org/query?q={_searchTerm}&packageType=dotnettool";
-            }
+            var searchTerm = _options.Arguments.Single();
+            var isDetailed = _options.ValueOrDefault<bool>("detail");
+            var skipString = _options.ValueOrDefault<string>("skip");
+            var take = _options.ValueOrDefault<string>("take");
+            var prerelease = _options.ValueOrDefault<bool>("prerelease");
+            var semverLevel = _options.ValueOrDefault<string>("semver-level");
+            //
+            // var searchResultPackages =
+            //     NugetSearchApiResultDeserializer.Deserialize(_nugetSearchApiRequest.GetResult(searchTerm,));
+            var table = new PrintableTable<SearchResultPackage>();
 
-            var httpClient = new HttpClient();
-            var cancellation = new CancellationTokenSource(TimeSpan.FromSeconds(10));
-            HttpResponseMessage response = httpClient.GetAsync(queryUrl, cancellation.Token).Result;
-
-            var result = response.Content.ReadAsStringAsync().Result;
-            var parsed = JsonSerializer.Deserialize<NugetSearchApiContainerSerializable>(result);
-
-            var table = new PrintableTable<NugetSearchApiPackageSerializable>();
-
-            if (!_isDetailed)
+            if (!isDetailed)
             {
                 table.AddColumn(
                     "Package ID",
-                    p => p.Id);
+                    p => p.Id.ToString());
                 table.AddColumn(
                     "Latest Version",
-                    p => p.Version);
+                    p => p.LatestVersion);
                 table.AddColumn(
                     "Authors",
                     p => p.Authors == null ? "" : string.Join(", ", p.Authors));
@@ -77,14 +68,14 @@ namespace Microsoft.DotNet.Tools.Tool.Search
                     "Verified",
                     p => p.Verified ? "x" : "");
 
-                table.PrintRows(parsed.Data, l => Reporter.Output.WriteLine(l));
+                table.PrintRows(searchResultPackages, l => Reporter.Output.WriteLine(l));
             }
             else
             {
-                foreach (var p in parsed.Data)
+                foreach (var p in searchResultPackages)
                 {
-                    Reporter.Output.WriteLine(p.Id);
-                    Reporter.Output.WriteLine("\tLatest Version: " + p.Version);
+                    Reporter.Output.WriteLine(p.Id.ToString());
+                    Reporter.Output.WriteLine("\tVersion: " + p.LatestVersion);
                     if (p.Authors != null)
                     {
                         Reporter.Output.WriteLine("\tAuthors: " + string.Join(", ", p.Authors));

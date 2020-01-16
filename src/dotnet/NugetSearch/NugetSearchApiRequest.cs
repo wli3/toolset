@@ -9,7 +9,7 @@ using System.Web;
 
 namespace Microsoft.DotNet.NugetSearch
 {
-    internal class NugetSearchApiRequest
+    internal class NugetSearchApiRequest : INugetSearchApiRequest
     {
         public string GetResult(string searchTerm = null, int? skip = null, int? take = null, bool prerelease = false,
             string semverLevel = null)
