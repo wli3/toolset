@@ -1,10 +1,7 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-using System.IO;
-using System.Linq;
 using FluentAssertions;
 using Microsoft.DotNet.NugetSearch;
-using Microsoft.DotNet.ToolPackage;
 using Microsoft.DotNet.Tools.Test.Utilities;
 using Xunit;
 
@@ -13,6 +10,13 @@ namespace dotnet.Tests.NugetSearchApiTests
     public class NugetSearchApiRequestTests : TestBase
     {
         [Fact]
+        public void ItShouldFetchContentSuccessfully()
+        {
+            var nugetSearchApiRequest = new NugetSearchApiRequest();
+            nugetSearchApiRequest.GetResult("dotnetsay").Should().Contain("A simple .NET Core global tool called");
+        }
+
+        [Fact]
         public void WhenPassedInRequestParametersItCanConstructTheUrl()
         {
             NugetSearchApiRequest.ConstructUrl("mytool", 3, 4, true, "1.0.0")
@@ -20,7 +24,7 @@ namespace dotnet.Tests.NugetSearchApiTests
                 .Should().Be(
                     "https://azuresearch-usnc.nuget.org/query?q=mytool&packageType=dotnettool&skip=3&take=4&prerelease=true&semVerLevel=1.0.0");
         }
-        
+
         [Fact]
         public void WhenPassedWithoutParameterItCanConstructTheUrl()
         {
@@ -28,13 +32,6 @@ namespace dotnet.Tests.NugetSearchApiTests
                 .AbsoluteUri
                 .Should().Be(
                     "https://azuresearch-usnc.nuget.org/query?packageType=dotnettool");
-        }
-
-        [Fact]
-        public void ItShouldFetchContentSuccessfully()
-        {
-            var nugetSearchApiRequest = new NugetSearchApiRequest();
-            nugetSearchApiRequest.GetResult("dotnetsay").Should().Contain("A simple .NET Core global tool called");
         }
     }
 }

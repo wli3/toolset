@@ -107,5 +107,29 @@ namespace Microsoft.DotNet.Cli.Utils
                 }
             }
         }
+        
+        internal static T RetryOnCondition<T>(Func<T> func, Func<Exception, bool> conditionToRetry)
+        {
+            int nextWaitTime = 10;
+            int remainRetry = 10;
+
+            while (true)
+            {
+                try
+                {
+                    return func();
+                }
+                catch (Exception e) when (conditionToRetry(e))
+                {
+                    Thread.Sleep(nextWaitTime);
+                    nextWaitTime *= 2;
+                    remainRetry--;
+                    if (remainRetry == 0)
+                    {
+                        throw;
+                    }
+                }
+            }
+        }
     }
 }
