@@ -22,7 +22,6 @@ namespace Microsoft.DotNet.Tools.Tool.Search
     internal class ToolSearchCommand : CommandBase
     {
         private readonly AppliedOption _options;
-        private readonly ParseResult _result;
         private readonly INugetSearchApiRequest _nugetSearchApiRequest;
 
         public ToolSearchCommand(
@@ -33,7 +32,6 @@ namespace Microsoft.DotNet.Tools.Tool.Search
             : base(result)
         {
             _options = options ?? throw new ArgumentNullException(nameof(options));
-            _result = result ?? throw new ArgumentNullException(nameof(result));
             _nugetSearchApiRequest = nugetSearchApiRequest ?? new NugetSearchApiRequest();
         }
 
@@ -41,17 +39,18 @@ namespace Microsoft.DotNet.Tools.Tool.Search
         {
             var searchTerm = _options.Arguments.Single();
             var isDetailed = _options.ValueOrDefault<bool>("detail");
-            var skipString = _options.ValueOrDefault<string>("skip");
-            var take = _options.ValueOrDefault<string>("take");
+            var skip = GetParsedResultAsInt("skip");
+            var take = GetParsedResultAsInt("take");
             var prerelease = _options.ValueOrDefault<bool>("prerelease");
             var semverLevel = _options.ValueOrDefault<string>("semver-level");
-            //
-            // var searchResultPackages =
-            //     NugetSearchApiResultDeserializer.Deserialize(_nugetSearchApiRequest.GetResult(searchTerm,));
-            var table = new PrintableTable<SearchResultPackage>();
+
+            IReadOnlyCollection<SearchResultPackage> searchResultPackages =
+                NugetSearchApiResultDeserializer.Deserialize(
+                    _nugetSearchApiRequest.GetResult(searchTerm, skip, take, prerelease, semverLevel));
 
             if (!isDetailed)
             {
+                var table = new PrintableTable<SearchResultPackage>();
                 table.AddColumn(
                     "Package ID",
                     p => p.Id.ToString());
@@ -90,6 +89,23 @@ namespace Microsoft.DotNet.Tools.Tool.Search
             }
 
             return 0;
+        }
+
+        private static int? GetParsedResultAsInt(string alias)
+        {
+            if (string.IsNullOrWhiteSpace(alias))
+            {
+                return null;
+            }
+
+            if (int.TryParse(alias, out int i))
+            {
+                return i;
+            }
+            else
+            {
+                throw new GracefulException(string.Format("{0} should be an interger", alias)); // TODO wul loc
+            }
         }
     }
 }
