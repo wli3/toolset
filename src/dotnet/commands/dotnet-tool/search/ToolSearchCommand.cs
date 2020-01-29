@@ -23,6 +23,7 @@ namespace Microsoft.DotNet.Tools.Tool.Search
     {
         private readonly AppliedOption _options;
         private readonly INugetSearchApiRequest _nugetSearchApiRequest;
+        private readonly SearchResultPrinter _searchResultPrinter;
 
         public ToolSearchCommand(
             AppliedOption options,
@@ -33,6 +34,7 @@ namespace Microsoft.DotNet.Tools.Tool.Search
         {
             _options = options ?? throw new ArgumentNullException(nameof(options));
             _nugetSearchApiRequest = nugetSearchApiRequest ?? new NugetSearchApiRequest();
+            _searchResultPrinter = new SearchResultPrinter(Reporter.Output);
         }
 
         public override int Execute()
@@ -48,45 +50,7 @@ namespace Microsoft.DotNet.Tools.Tool.Search
                 NugetSearchApiResultDeserializer.Deserialize(
                     _nugetSearchApiRequest.GetResult(searchTerm, skip, take, prerelease, semverLevel));
 
-            if (!isDetailed)
-            {
-                var table = new PrintableTable<SearchResultPackage>();
-                table.AddColumn(
-                    "Package ID",
-                    p => p.Id.ToString());
-                table.AddColumn(
-                    "Latest Version",
-                    p => p.LatestVersion);
-                table.AddColumn(
-                    "Authors",
-                    p => p.Authors == null ? "" : string.Join(", ", p.Authors));
-                table.AddColumn(
-                    "Downloads",
-                    p => p.TotalDownloads.ToString());
-                table.AddColumn(
-                    "Verified",
-                    p => p.Verified ? "x" : "");
-
-                table.PrintRows(searchResultPackages, l => Reporter.Output.WriteLine(l));
-            }
-            else
-            {
-                foreach (var p in searchResultPackages)
-                {
-                    Reporter.Output.WriteLine(p.Id.ToString());
-                    Reporter.Output.WriteLine("\tVersion: " + p.LatestVersion);
-                    if (p.Authors != null)
-                    {
-                        Reporter.Output.WriteLine("\tAuthors: " + string.Join(", ", p.Authors));
-                    }
-
-                    Reporter.Output.WriteLine("\tDownloads: " + p.TotalDownloads);
-                    Reporter.Output.WriteLine("\tVerified: " + p.Verified.ToString());
-                    Reporter.Output.WriteLine("\tSummary: " + p.Summary);
-                    Reporter.Output.WriteLine("\tDescription: " + p.Description);
-                    Reporter.Output.WriteLine();
-                }
-            }
+            _searchResultPrinter.Print(isDetailed, searchResultPackages);
 
             return 0;
         }
