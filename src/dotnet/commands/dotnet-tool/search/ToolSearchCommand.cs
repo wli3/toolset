@@ -68,7 +68,7 @@ namespace Microsoft.DotNet.Tools.Tool.Search
             }
             else
             {
-                throw new GracefulException(string.Format("{0} should be an interger", alias)); // TODO wul loc
+                throw new GracefulException(string.Format(LocalizableStrings.InvalidInputTypeInteger, alias)); // TODO wul loc
             }
         }
     }

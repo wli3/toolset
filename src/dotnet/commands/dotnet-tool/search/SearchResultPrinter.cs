@@ -25,19 +25,19 @@ namespace Microsoft.DotNet.Tools.Tool.Search
             {
                 var table = new PrintableTable<SearchResultPackage>();
                 table.AddColumn(
-                    "Package ID",
+                    LocalizableStrings.PackageId,
                     p => p.Id.ToString());
                 table.AddColumn(
-                    "Latest Version",
+                    LocalizableStrings.LatestVersion,
                     p => p.LatestVersion);
                 table.AddColumn(
-                    "Authors",
+                    LocalizableStrings.Authors,
                     p => p.Authors == null ? "" : string.Join(", ", p.Authors));
                 table.AddColumn(
-                    "Downloads",
+                    LocalizableStrings.Downloads,
                     p => p.TotalDownloads.ToString());
                 table.AddColumn(
-                    "Verified",
+                    LocalizableStrings.Verified,
                     p => p.Verified ? "x" : "");
 
                 table.PrintRows(searchResultPackages, l => _reporter.WriteLine(l));
@@ -47,19 +47,19 @@ namespace Microsoft.DotNet.Tools.Tool.Search
                 foreach (var p in searchResultPackages)
                 {
                     _reporter.WriteLine(p.Id.ToString());
-                    _reporter.WriteLine("\tVersion: " + p.LatestVersion);
+                    _reporter.WriteLine($"\t{LocalizableStrings.LatestVersion}: " + p.LatestVersion);
                     if (p.Authors != null)
                     {
-                        _reporter.WriteLine("\tAuthors: " + string.Join(", ", p.Authors));
+                        _reporter.WriteLine($"\t{LocalizableStrings.Authors}: " + string.Join(", ", p.Authors));
                     }
 
-                    _reporter.WriteLine("\tDownloads: " + p.TotalDownloads);
-                    _reporter.WriteLine("\tVerified: " + p.Verified.ToString());
-                    _reporter.WriteLine("\tSummary: " + p.Summary);
-                    _reporter.WriteLine("\tDescription: " + p.Description);
+                    _reporter.WriteLine($"\t{LocalizableStrings.Downloads}: " + p.TotalDownloads);
+                    _reporter.WriteLine($"\t{LocalizableStrings.Verified}: " + p.Verified.ToString());
+                    _reporter.WriteLine($"\t{LocalizableStrings.Summary}: " + p.Summary);
+                    _reporter.WriteLine($"\t{LocalizableStrings.Description}: " + p.Description);
                     _reporter.WriteLine();
                 }
             }
         }
-
+    }
 }

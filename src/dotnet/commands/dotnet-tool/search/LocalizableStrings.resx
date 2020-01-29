@@ -156,4 +156,35 @@
   <data name="SemVerLevelDescription" xml:space="preserve">
     <value>A SemVer 1.0.0 version string.</value>
   </data>
+  <data name="Authors" xml:space="preserve">
+    <value>Authors</value>
+    <comment>Table lable</comment>
+  </data>
+  <data name="Description" xml:space="preserve">
+    <value>Description</value>
+    <comment>Table lable</comment>
+  </data>
+  <data name="Downloads" xml:space="preserve">
+    <value>Downloads</value>
+    <comment>Table lable</comment>
+  </data>
+  <data name="InvalidInputTypeInteger" xml:space="preserve">
+    <value>{0} should be an integer</value>
+  </data>
+  <data name="LatestVersion" xml:space="preserve">
+    <value>Latest Version</value>
+    <comment>Table lable</comment>
+  </data>
+  <data name="PackageId" xml:space="preserve">
+    <value>Package ID</value>
+    <comment>Table lable</comment>
+  </data>
+  <data name="Summary" xml:space="preserve">
+    <value>Summary</value>
+    <comment>Table lable</comment>
+  </data>
+  <data name="Verified" xml:space="preserve">
+    <value>Verified</value>
+    <comment>Table lable</comment>
+  </data>
 </root>
