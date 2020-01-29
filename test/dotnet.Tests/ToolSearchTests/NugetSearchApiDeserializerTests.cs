@@ -8,7 +8,7 @@ using Microsoft.DotNet.ToolPackage;
 using Microsoft.DotNet.Tools.Test.Utilities;
 using Xunit;
 
-namespace dotnet.Tests.NugetSearchApiTests
+namespace dotnet.Tests.ToolSearchTests
 {
     public class NugetSearchApiDeserializerTests : TestBase
     {
