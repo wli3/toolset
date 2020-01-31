@@ -53,6 +53,11 @@ namespace Microsoft.DotNet.Tools.Tool.Search
                         _reporter.WriteLine($"\t{LocalizableStrings.Authors}: " + string.Join(", ", p.Authors));
                     }
 
+                    if (p.Tags != null)
+                    {
+                        _reporter.WriteLine($"\t{LocalizableStrings.Tags}: " + string.Join(", ", p.Tags));
+                    }
+                    
                     _reporter.WriteLine($"\t{LocalizableStrings.Downloads}: " + p.TotalDownloads);
                     _reporter.WriteLine($"\t{LocalizableStrings.Verified}: " + p.Verified.ToString());
                     _reporter.WriteLine($"\t{LocalizableStrings.Summary}: " + p.Summary);

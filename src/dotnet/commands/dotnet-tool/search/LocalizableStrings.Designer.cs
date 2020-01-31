@@ -61,6 +61,15 @@ namespace Microsoft.DotNet.Cli.commands.search {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Authors.
+        /// </summary>
+        public static string Authors {
+            get {
+                return ResourceManager.GetString("Authors", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Search dotnet tools in nuget.org.
         /// </summary>
         public static string CommandDescription {
@@ -79,6 +88,15 @@ namespace Microsoft.DotNet.Cli.commands.search {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Description.
+        /// </summary>
+        public static string Description {
+            get {
+                return ResourceManager.GetString("Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Detail.
         /// </summary>
         public static string DetailArgumentName {
@@ -93,6 +111,42 @@ namespace Microsoft.DotNet.Cli.commands.search {
         public static string DetailDescription {
             get {
                 return ResourceManager.GetString("DetailDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Downloads.
+        /// </summary>
+        public static string Downloads {
+            get {
+                return ResourceManager.GetString("Downloads", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} should be an integer.
+        /// </summary>
+        public static string InvalidInputTypeInteger {
+            get {
+                return ResourceManager.GetString("InvalidInputTypeInteger", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Latest Version.
+        /// </summary>
+        public static string LatestVersion {
+            get {
+                return ResourceManager.GetString("LatestVersion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Package ID.
+        /// </summary>
+        public static string PackageId {
+            get {
+                return ResourceManager.GetString("PackageId", resourceCulture);
             }
         }
         
@@ -160,6 +214,24 @@ namespace Microsoft.DotNet.Cli.commands.search {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Summary.
+        /// </summary>
+        public static string Summary {
+            get {
+                return ResourceManager.GetString("Summary", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Tags.
+        /// </summary>
+        public static string Tags {
+            get {
+                return ResourceManager.GetString("Tags", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Take.
         /// </summary>
         public static string TakeArgumentName {
@@ -174,6 +246,15 @@ namespace Microsoft.DotNet.Cli.commands.search {
         public static string TakeDescription {
             get {
                 return ResourceManager.GetString("TakeDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Verified.
+        /// </summary>
+        public static string Verified {
+            get {
+                return ResourceManager.GetString("Verified", resourceCulture);
             }
         }
     }

@@ -16,7 +16,7 @@ namespace Microsoft.DotNet.Tools.Tool.Search
     {
         public SearchResultPackage(
             PackageId id,
-            string version,
+            string latestVersion,
             string description,
             string summary,
             IReadOnlyCollection<string> tags,
@@ -26,7 +26,7 @@ namespace Microsoft.DotNet.Tools.Tool.Search
             IReadOnlyCollection<SearchResultPackageVersion> versions)
         {
             Id = id;
-            LatestVersion = version ?? throw new ArgumentNullException(nameof(version));
+            LatestVersion = latestVersion ?? throw new ArgumentNullException(nameof(latestVersion));
             Description = description;
             Summary = summary;
             Tags = tags ?? throw new ArgumentNullException(nameof(tags));

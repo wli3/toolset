@@ -92,6 +92,11 @@
         <target state="new">Summary</target>
         <note>Table lable</note>
       </trans-unit>
+      <trans-unit id="Tags">
+        <source>Tags</source>
+        <target state="new">Tags</target>
+        <note>Table lable</note>
+      </trans-unit>
       <trans-unit id="TakeArgumentName">
         <source>Take</source>
         <target state="new">Take</target>
