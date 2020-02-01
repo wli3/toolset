@@ -39,37 +39,15 @@ namespace Microsoft.DotNet.Tools.Tool.Search
 
         public override int Execute()
         {
-            var searchTerm = _options.Arguments.Single();
             var isDetailed = _options.ValueOrDefault<bool>("detail");
-            var skip = GetParsedResultAsInt("skip");
-            var take = GetParsedResultAsInt("take");
-            var prerelease = _options.ValueOrDefault<bool>("prerelease");
-            var semverLevel = _options.ValueOrDefault<string>("semver-level");
-
+            NugetSearchApiParameter nugetSearchApiParameter = new NugetSearchApiParameter(_options);
             IReadOnlyCollection<SearchResultPackage> searchResultPackages =
                 NugetSearchApiResultDeserializer.Deserialize(
-                    _nugetSearchApiRequest.GetResult(searchTerm, skip, take, prerelease, semverLevel));
+                    _nugetSearchApiRequest.GetResult(nugetSearchApiParameter));
 
             _searchResultPrinter.Print(isDetailed, searchResultPackages);
 
             return 0;
-        }
-
-        private static int? GetParsedResultAsInt(string alias)
-        {
-            if (string.IsNullOrWhiteSpace(alias))
-            {
-                return null;
-            }
-
-            if (int.TryParse(alias, out int i))
-            {
-                return i;
-            }
-            else
-            {
-                throw new GracefulException(string.Format(LocalizableStrings.InvalidInputTypeInteger, alias)); // TODO wul loc
-            }
         }
     }
 }

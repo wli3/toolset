@@ -5,7 +5,6 @@ namespace Microsoft.DotNet.NugetSearch
 {
     internal interface INugetSearchApiRequest
     {
-        string GetResult(string searchTerm = null, int? skip = null, int? take = null, bool prerelease = false,
-            string semverLevel = null);
+        string GetResult(NugetSearchApiParameter nugetSearchApiParameter);
     }
 }

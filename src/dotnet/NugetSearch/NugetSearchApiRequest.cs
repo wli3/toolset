@@ -11,10 +11,15 @@ namespace Microsoft.DotNet.NugetSearch
 {
     internal class NugetSearchApiRequest : INugetSearchApiRequest
     {
-        public string GetResult(string searchTerm = null, int? skip = null, int? take = null, bool prerelease = false,
-            string semverLevel = null)
+        public string GetResult(NugetSearchApiParameter nugetSearchApiParameter)
         {
-            var queryUrl = ConstructUrl(searchTerm, skip, take, prerelease, semverLevel);
+            var queryUrl = ConstructUrl(
+                nugetSearchApiParameter.SearchTerm,
+                nugetSearchApiParameter.Skip,
+                nugetSearchApiParameter.Take,
+                nugetSearchApiParameter.Prerelease,
+                nugetSearchApiParameter.SemverLevel);
+
             var httpClient = new HttpClient();
             var cancellation = new CancellationTokenSource(TimeSpan.FromSeconds(10));
             HttpResponseMessage response = httpClient.GetAsync(queryUrl, cancellation.Token).Result;
