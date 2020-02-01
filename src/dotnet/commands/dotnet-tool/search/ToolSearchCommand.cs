@@ -3,26 +3,17 @@
 
 using System;
 using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Net.Http;
-using System.Text.Json;
-using System.Threading;
 using Microsoft.DotNet.Cli;
 using Microsoft.DotNet.Cli.CommandLine;
-using Microsoft.DotNet.NugetSearch;
 using Microsoft.DotNet.Cli.Utils;
-using Microsoft.DotNet.Configurer;
-using Microsoft.DotNet.ToolPackage;
-using Microsoft.DotNet.Tools.Tool.Common;
-using Microsoft.Extensions.EnvironmentAbstractions;
+using Microsoft.DotNet.NugetSearch;
 
 namespace Microsoft.DotNet.Tools.Tool.Search
 {
     internal class ToolSearchCommand : CommandBase
     {
-        private readonly AppliedOption _options;
         private readonly INugetSearchApiRequest _nugetSearchApiRequest;
+        private readonly AppliedOption _options;
         private readonly SearchResultPrinter _searchResultPrinter;
 
         public ToolSearchCommand(

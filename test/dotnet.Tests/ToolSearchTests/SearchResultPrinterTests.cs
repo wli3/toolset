@@ -12,6 +12,11 @@ namespace dotnet.Tests.ToolSearchTests
 {
     public class SearchResultPrinterTests
     {
+        private readonly BufferedReporter _reporter;
+        private readonly SearchResultPrinter _searchResultPrinter;
+        private readonly SearchResultPackage _filledSearchResultPackage;
+        private readonly SearchResultPackage _mostEmptyToCheckNullException;
+
         public SearchResultPrinterTests()
         {
             _reporter = new BufferedReporter();
@@ -38,11 +43,6 @@ namespace dotnet.Tests.ToolSearchTests
                 true,
                 new List<SearchResultPackageVersion> {new SearchResultPackageVersion("1.0.0", 10)});
         }
-
-        private readonly BufferedReporter _reporter;
-        private readonly SearchResultPrinter _searchResultPrinter;
-        private readonly SearchResultPackage _filledSearchResultPackage;
-        private readonly SearchResultPackage _mostEmptyToCheckNullException;
 
         [Fact]
         public void WhenDetailedIsFalseResultHasNecessaryInfo()
