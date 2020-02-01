@@ -2,6 +2,7 @@ using System.Linq;
 using Microsoft.DotNet.Cli;
 using Microsoft.DotNet.Cli.CommandLine;
 using Microsoft.DotNet.Cli.Utils;
+using Microsoft.TemplateEngine.Cli;
 
 namespace Microsoft.DotNet.NugetSearch
 {
@@ -31,8 +32,8 @@ namespace Microsoft.DotNet.NugetSearch
         {
             var searchTerm = appliedOption.Arguments.Single();
 
-            var skip = GetParsedResultAsInt("skip");
-            var take = GetParsedResultAsInt("take");
+            var skip = GetParsedResultAsInt(appliedOption, "skip");
+            var take = GetParsedResultAsInt(appliedOption, "take");
             var prerelease = appliedOption.ValueOrDefault<bool>("prerelease");
             var semverLevel = appliedOption.ValueOrDefault<string>("semver-level");
 
@@ -43,21 +44,24 @@ namespace Microsoft.DotNet.NugetSearch
             SemverLevel = semverLevel;
         }
 
-        private static int? GetParsedResultAsInt(string alias)
+        private static int? GetParsedResultAsInt(AppliedOption appliedOption, string alias)
         {
-            if (string.IsNullOrWhiteSpace(alias))
+            var valueFromParser = appliedOption.ValueOrDefault<string>(alias);
+            if (string.IsNullOrWhiteSpace(valueFromParser))
             {
                 return null;
             }
 
-            if (int.TryParse(alias, out int i))
+            if (int.TryParse(valueFromParser, out int i))
             {
                 return i;
             }
             else
             {
-                throw new GracefulException(string.Format(Tools.Tool.Search.LocalizableStrings.InvalidInputTypeInteger,
-                    alias));
+                throw new GracefulException(
+                    string.Format(
+                        Tools.Tool.Search.LocalizableStrings.InvalidInputTypeInteger,
+                        alias));
             }
         }
     }

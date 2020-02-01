@@ -33,5 +33,17 @@ namespace dotnet.Tests.ToolSearchTests
             Action a = () => new NugetSearchApiParameter(appliedOptions);
             a.ShouldThrow<GracefulException>();
         }
+        
+        [Fact]
+        public void ItShouldNotThrowWhenInputIsValid()
+        {
+            var parseResult = Parser.Instance.Parse("dotnet tool search mytool --detail --skip 3 --take 4 --prerelease");
+
+            var appliedOptions = parseResult["dotnet"]["tool"]["search"];
+            var result = new NugetSearchApiParameter(appliedOptions);
+            result.Prerelease.Should().Be(true);
+            result.Skip.Should().Be(3);
+            result.Take.Should().Be(4);
+        }
     }
 }

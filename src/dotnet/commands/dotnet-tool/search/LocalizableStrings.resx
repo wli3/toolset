@@ -156,6 +156,9 @@
   <data name="SemVerLevelDescription" xml:space="preserve">
     <value>A SemVer 1.0.0 version string.</value>
   </data>
+  <data name="NoResult" xml:space="preserve">
+    <value>Could not find any results.</value>
+  </data>
   <data name="Authors" xml:space="preserve">
     <value>Authors</value>
     <comment>Table lable</comment>

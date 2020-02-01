@@ -142,6 +142,15 @@ namespace Microsoft.DotNet.Cli.commands.search {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Could not find any results..
+        /// </summary>
+        public static string NoResult {
+            get {
+                return ResourceManager.GetString("NoResult", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Package ID.
         /// </summary>
         public static string PackageId {

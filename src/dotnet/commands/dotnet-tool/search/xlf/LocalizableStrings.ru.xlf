@@ -47,6 +47,11 @@
         <target state="new">Latest Version</target>
         <note>Table lable</note>
       </trans-unit>
+      <trans-unit id="NoResult">
+        <source>Could not find any results.</source>
+        <target state="new">Could not find any results.</target>
+        <note />
+      </trans-unit>
       <trans-unit id="PackageId">
         <source>Package ID</source>
         <target state="new">Package ID</target>

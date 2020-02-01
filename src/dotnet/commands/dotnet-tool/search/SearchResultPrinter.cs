@@ -21,6 +21,12 @@ namespace Microsoft.DotNet.Tools.Tool.Search
 
         public void Print(bool isDetailed, IReadOnlyCollection<SearchResultPackage> searchResultPackages)
         {
+            if (searchResultPackages.Count == 0)
+            {
+                _reporter.WriteLine(LocalizableStrings.NoResult);
+                return;
+            }
+
             if (!isDetailed)
             {
                 var table = new PrintableTable<SearchResultPackage>();

@@ -90,5 +90,25 @@ namespace dotnet.Tests.ToolSearchTests
                 _reporter.Lines.Should().Contain(l => l.Contains(expectedInformationToBePresent),
                     $"Expect \"{expectedInformationToBePresent}\" to be present");
         }
+
+        [Fact]
+        public void WhenInputIsEmptyDetailIsFalseItShouldPrintNoResultMessage()
+        {
+            var searchResultPackages =
+                new List<SearchResultPackage>() ;
+            _searchResultPrinter.Print(false, searchResultPackages);
+            _reporter.Lines.Count.Should().Be(1);
+            _reporter.Lines.Should().Contain(LocalizableStrings.NoResult);
+        }
+        
+        [Fact]
+        public void WhenInputIsEmptyDetailIsTrueItShouldPrintNoResultMessage()
+        {
+            var searchResultPackages =
+                new List<SearchResultPackage>() ;
+            _searchResultPrinter.Print(true, searchResultPackages);
+            _reporter.Lines.Count.Should().Be(1);
+            _reporter.Lines.Should().Contain(LocalizableStrings.NoResult);
+        }
     }
 }
