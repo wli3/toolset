@@ -194,4 +194,12 @@
     <value>Tags</value>
     <comment>Table lable</comment>
   </data>
+  <data name="Versions" xml:space="preserve">
+    <value>Versions</value>
+    <comment>Table lable</comment>
+  </data>
+  <data name="Version" xml:space="preserve">
+    <value>Version</value>
+    <comment>Table lable</comment>
+  </data>
 </root>

@@ -39,9 +39,9 @@ namespace dotnet.Tests.ToolSearchTests
                 null,
                 new List<string>(),
                 new List<string> {"author1", "author2"},
-                10,
+                1244,
                 true,
-                new List<SearchResultPackageVersion> {new SearchResultPackageVersion("1.0.0", 10)});
+                new List<SearchResultPackageVersion> {new SearchResultPackageVersion("1.0.0", 10), new SearchResultPackageVersion("0.9.0", 1234)});
         }
 
         [Fact]
@@ -83,7 +83,9 @@ namespace dotnet.Tests.ToolSearchTests
                 _filledSearchResultPackage.Versions.First().Version,
                 _filledSearchResultPackage.Versions.First().Downloads.ToString(),
                 _mostEmptyToCheckNullException.Id.ToString(), _filledSearchResultPackage.Description,
-                _filledSearchResultPackage.Summary, _filledSearchResultPackage.Tags.First()
+                _filledSearchResultPackage.Summary, _filledSearchResultPackage.Tags.First(),
+                _filledSearchResultPackage.Versions.First().Version,
+                _filledSearchResultPackage.Versions.First().Downloads.ToString(),
             };
 
             foreach (var expectedInformationToBePresent in expectedInformation)

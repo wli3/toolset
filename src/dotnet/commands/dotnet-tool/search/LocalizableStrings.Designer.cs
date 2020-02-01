@@ -266,5 +266,23 @@ namespace Microsoft.DotNet.Cli.commands.search {
                 return ResourceManager.GetString("Verified", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Version.
+        /// </summary>
+        public static string Version {
+            get {
+                return ResourceManager.GetString("Version", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Versions.
+        /// </summary>
+        public static string Versions {
+            get {
+                return ResourceManager.GetString("Versions", resourceCulture);
+            }
+        }
     }
 }

@@ -52,22 +52,44 @@ namespace Microsoft.DotNet.Tools.Tool.Search
             {
                 foreach (var p in searchResultPackages)
                 {
+                    _reporter.WriteLine("----------------".Bold());
                     _reporter.WriteLine(p.Id.ToString());
-                    _reporter.WriteLine($"\t{LocalizableStrings.LatestVersion}: " + p.LatestVersion);
+                    _reporter.WriteLine($"{LocalizableStrings.LatestVersion}: ".Bold() + p.LatestVersion);
                     if (p.Authors != null)
                     {
-                        _reporter.WriteLine($"\t{LocalizableStrings.Authors}: " + string.Join(", ", p.Authors));
+                        _reporter.WriteLine($"{LocalizableStrings.Authors}: ".Bold() + string.Join(", ", p.Authors));
                     }
 
                     if (p.Tags != null)
                     {
-                        _reporter.WriteLine($"\t{LocalizableStrings.Tags}: " + string.Join(", ", p.Tags));
+                        _reporter.WriteLine($"{LocalizableStrings.Tags}: ".Bold() + string.Join(", ", p.Tags));
                     }
-                    
-                    _reporter.WriteLine($"\t{LocalizableStrings.Downloads}: " + p.TotalDownloads);
-                    _reporter.WriteLine($"\t{LocalizableStrings.Verified}: " + p.Verified.ToString());
-                    _reporter.WriteLine($"\t{LocalizableStrings.Summary}: " + p.Summary);
-                    _reporter.WriteLine($"\t{LocalizableStrings.Description}: " + p.Description);
+
+                    _reporter.WriteLine($"{LocalizableStrings.Downloads}: ".Bold() + p.TotalDownloads);
+
+
+                    _reporter.WriteLine($"{LocalizableStrings.Verified}: ".Bold() + p.Verified.ToString());
+
+                    if (!string.IsNullOrWhiteSpace(p.Summary))
+                    {
+                        _reporter.WriteLine($"{LocalizableStrings.Summary}: ".Bold() + p.Summary);
+                    }
+
+                    if (!string.IsNullOrWhiteSpace(p.Description))
+                    {
+                        _reporter.WriteLine($"{LocalizableStrings.Description}: ".Bold() + p.Description);
+                    }
+
+                    if (p.Versions.Count != 0)
+                    {
+                        _reporter.WriteLine($"{LocalizableStrings.Versions}: ".Bold());
+                        foreach (SearchResultPackageVersion version in p.Versions)
+                        {
+                            _reporter.WriteLine(
+                                $"\t{version.Version}" + $" {LocalizableStrings.Downloads}: ".Bold() + version.Downloads);
+                        }
+                    }
+
                     _reporter.WriteLine();
                 }
             }

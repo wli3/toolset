@@ -117,6 +117,16 @@
         <target state="new">Verified</target>
         <note>Table lable</note>
       </trans-unit>
+      <trans-unit id="Version">
+        <source>Version</source>
+        <target state="new">Version</target>
+        <note>Table lable</note>
+      </trans-unit>
+      <trans-unit id="Versions">
+        <source>Versions</source>
+        <target state="new">Versions</target>
+        <note>Table lable</note>
+      </trans-unit>
     </body>
   </file>
 </xliff>
